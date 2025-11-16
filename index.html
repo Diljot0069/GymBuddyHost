@@ -1,0 +1,329 @@
+
+                
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>FitTrack - Gym Management System</title>
+    <script src = "script.js"></script>
+    
+</head>
+<body>
+  
+    <div class="hero-section" id="heroSection">
+        <div class="hero-content">
+            <h1 class="hero-title">FitTrack</h1>
+            <p class="hero-subtitle">Complete Gym Management System</p>
+            <button class="enter-btn" onclick="enterApp()">Enter Dashboard</button>
+        </div>
+    </div>
+
+  
+    <div class="main-app" id="mainApp">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">GymBuddy</div>
+                <div class="nav-tabs">
+                    <button class="nav-tab active" onclick="showSection('dashboard')">Dashboard</button>
+                    <button class="nav-tab" onclick="showSection('members')">Members</button>
+                    <button class="nav-tab" onclick="showSection('workouts')">Workouts</button>
+                    <button class="nav-tab" onclick="showSection('exercises')">Exercise Guide</button>
+                    <button class="nav-tab" id="loginBtn"  onclick="openLoginPage()">Login</button>
+                             
+
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <!-- Dashboard Section -->
+            <div id="dashboard" class="section active">
+                <div class="stats-grid">
+                    <div class="stat-card" onclick="showSection('members')">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-number" id="totalMembers">300</div>
+                        <div class="stat-label">Total Members</div>
+                    </div>
+                    <div class="stat-card" onclick="showSection('members')">
+                        <div class="stat-icon">✅</div>
+                        <div class="stat-number" id="activeMembers">250</div>
+                        <div class="stat-label">Active Members</div>
+                    </div>
+                    <div class="stat-card" onclick="refreshDashboard()">
+                        <div class="stat-icon">📅</div>
+                        <div class="stat-number" id="todayVisits">198</div>
+                        <div class="stat-label">Today's Visits</div>
+                    </div>
+                    <div class="stat-card" onclick="showSection('workouts')">
+                        <div class="stat-icon">🏋️</div>
+                        <div class="stat-number" id="totalWorkouts">4</div>
+                        <div class="stat-label">Workout Plans</div>
+                    </div>
+                </div>
+
+                <div class="quick-actions">
+                    <div class="quick-action" onclick="showSection('members')">
+                        <div class="quick-action-icon">➕</div>
+                        <div class="quick-action-title">Add Member</div>
+                        <div class="quick-action-desc">Register new gym member</div>
+                    </div>
+                    <div class="quick-action" onclick="showCreateWorkoutModal()">
+                        <div class="quick-action-icon">🎯</div>
+                        <div class="quick-action-title">Create Workout</div>
+                        <div class="quick-action-desc">Design training plan</div>
+                    </div>
+                    <div class="quick-action" onclick="showSection('exercises')">
+                        <div class="quick-action-icon">📚</div>
+                        <div class="quick-action-title">Exercise Guide</div>
+                        <div class="quick-action-desc">Browse exercise database</div>
+                    </div>
+                    <div class="quick-action" onclick="generateReport()">
+                        <div class="quick-action-icon">📊</div>
+                        <div class="quick-action-title">Generate Report</div>
+                        <div class="quick-action-desc">View gym statistics</div>
+                    </div>
+                </div>
+
+                <div class="progress-section">
+                    <div class="progress-card">
+                        <h3 style="color: #667eea; margin-bottom: 1rem;">Monthly Progress</h3>
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span>Member Growth</span>
+                                <span id="memberGrowthPercent">75%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 75%;" id="memberGrowthBar"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span>Revenue Target</span>
+                                <span id="revenuePercent">60%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 60%;" id="revenueBar"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="progress-card">
+                        <h3 style="color: #667eea; margin-bottom: 1rem;">Equipment Status</h3>
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span>Operational Equipment</span>
+                                <span>92%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 92%;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span>Maintenance Scheduled</span>
+                                <span>15%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 15%; background: linear-gradient(90deg, #ff6b6b, #ff8e53);"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <h3 style="color: #667eea; margin-bottom: 1rem;">Peak Hours Analysis</h3>
+                    <div style="display: flex; justify-content: space-around; align-items: end; height: 150px; margin-bottom: 1rem;">
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <div style="width: 30px; height: 60px; background: linear-gradient(to top, #667eea, #764ba2); border-radius: 4px; margin-bottom: 0.5rem; animation: growHeight 1s ease-in-out;"></div>
+                            <small>6-8 AM</small>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <div style="width: 30px; height: 120px; background: linear-gradient(to top, #667eea, #764ba2); border-radius: 4px; margin-bottom: 0.5rem; animation: growHeight 1.2s ease-in-out;"></div>
+                            <small>6-8 PM</small>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <div style="width: 30px; height: 80px; background: linear-gradient(to top, #667eea, #764ba2); border-radius: 4px; margin-bottom: 0.5rem; animation: growHeight 1.4s ease-in-out;"></div>
+                            <small>10-12 PM</small>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <div style="width: 30px; height: 40px; background: linear-gradient(to top, #667eea, #764ba2); border-radius: 4px; margin-bottom: 0.5rem; animation: growHeight 1.6s ease-in-out;"></div>
+                            <small>2-4 PM</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem;">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Recent Activities</h2>
+                            <button class="btn" onclick="refreshActivities()">Refresh</button>
+                        </div>
+                        <div id="recentActivities">
+                            <p>Loading activities...</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="weather-widget">
+                            <div class="weather-temp">24°C</div>
+                            <div>Perfect Weather for Workout!</div>
+                            <div style="margin-top: 0.5rem; font-size: 0.9rem; opacity: 0.8;">Sunny, Light Breeze</div>
+                        </div>
+
+                        <div class="notifications-panel">
+                            <div style="background: #667eea; color: white; padding: 1rem; font-weight: bold;">
+                                📢 Notifications
+                            </div>
+                            <div class="notification-item" style="animation-delay: 0.1s;">
+                                <div style="font-weight: bold; color: #667eea;">Membership Expiry</div>
+                                <div style="font-size: 0.9rem; color: #666;">2 members expiring this week</div>
+                            </div>
+                            <div class="notification-item" style="animation-delay: 0.2s;">
+                                <div style="font-weight: bold; color: #667eea;">Equipment Maintenance</div>
+                                <div style="font-size: 0.9rem; color: #666;">Treadmill #3 scheduled for service</div>
+                            </div>
+                            <div class="notification-item" style="animation-delay: 0.3s;">
+                                <div style="font-weight: bold; color: #667eea;">New Registration</div>
+                                <div style="font-size: 0.9rem; color: #666;">5 new members this week</div>
+                            </div>
+                            <div class="notification-item" style="animation-delay: 0.4s;">
+                                <div style="font-weight: bold; color: #667eea;">Payment Reminder</div>
+                                <div style="font-size: 0.9rem; color: #666;">3 pending payment reminders</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="floating-action" onclick="showQuickCheckIn()" title="Quick Check-in">
+                    ⚡
+                </button>
+            </div>
+
+            <!-- Members Section -->
+            <div id="members" class="section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Add New Member</h2>
+                    </div>
+                    <form id="memberForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Name:</label>
+                                <input type="text" class="form-control" id="memberName" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Email:</label>
+                                <input type="email" class="form-control" id="memberEmail" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Phone:</label>
+                                <input type="tel" class="form-control" id="memberPhone" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Membership Type:</label>
+                                <select class="form-control" id="membershipType" required>
+                                    <option value="basic">Basic (₹2000/month)</option>
+                                    <option value="premium">Premium (₹3500/month)</option>
+                                    <option value="vip">VIP (₹5000/month)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Start Date:</label>
+                                <input type="date" class="form-control" id="startDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Duration (months):</label>
+                                <select class="form-control" id="duration" required>
+                                    <option value="1">1 Month</option>
+                                    <option value="3">3 Months</option>
+                                    <option value="6">6 Months</option>
+                                    <option value="12">12 Months</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn">Add Member</button>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">All Members</h2>
+                    </div>
+                    <div id="membersList"></div>
+                </div>
+            </div>
+
+            <!-- Workouts Section -->
+            <div id="workouts" class="section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Workout Plans</h2>
+                        <button class="btn" onclick="showCreateWorkoutModal()">Create Plan</button>
+                    </div>
+                    <div id="workoutPlans"></div>
+                </div>
+            </div>
+
+            <!-- Exercise Guide Section -->
+            <div id="exercises" class="section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Exercise Database</h2>
+                    </div>
+                    <div id="exercisesList"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="memberModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('memberModal')">&times;</span>
+            <h2>Member Details</h2>
+            <div id="memberDetails"></div>
+            <button class="btn" onclick="checkIn()" id="checkInBtn">Check In</button>
+        </div>
+    </div>
+
+    <div id="workoutModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('workoutModal')">&times;</span>
+            <h2>Create Workout Plan</h2>
+            <form id="workoutForm">
+                <div class="form-group">
+                    <label>Plan Name:</label>
+                    <input type="text" class="form-control" id="planName" required>
+                </div>
+                <div class="form-group">
+                    <label>Select Member:</label>
+                    <select class="form-control" id="planMember" required>
+                        <option value="">Select Member</option>
+                    </select>
+                </div>
+                <div class="exercise-form">
+                    <h3>Add Exercises</h3>
+                    <div id="exerciseInputs"></div>
+                    <button type="button" class="btn" onclick="addExerciseInput()">Add Exercise</button>
+                </div>
+                <button type="submit" class="btn">Save Plan</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="exerciseModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('exerciseModal')">&times;</span>
+            <div id="exerciseDetails"></div>
+        </div>
+    </div>
+
+  
+</body>
+</html>
